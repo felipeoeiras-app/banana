@@ -1,0 +1,359 @@
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); background: transparent; }
+
+  .hero {
+    background: linear-gradient(160deg, #042C53 0%, #185FA5 55%, #1D9E75 100%);
+    border-radius: var(--border-radius-lg);
+    padding: 64px 40px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='600' height='200' viewBox='0 0 600 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='300' cy='220' rx='420' ry='100' fill='rgba(255,255,255,0.04)'/%3E%3Cellipse cx='100' cy='240' rx='300' ry='80' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") bottom/cover no-repeat;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #9FE1CB;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 0.5px solid rgba(255,255,255,0.25);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .hero h1 span { color: #5DCAA5; }
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    position: relative;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1D9E75;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-md);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .hero-cta:hover { background: #0F6E56; }
+  .hero-wave {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 32px;
+    background: var(--color-background-primary, #fff);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 2.5rem;
+  }
+  .stat-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1rem 1.25rem;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 26px;
+    font-weight: 500;
+    color: #185FA5;
+    display: block;
+  }
+  .stat-card .lbl {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0F6E56;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.75rem;
+    line-height: 1.6;
+    max-width: 540px;
+  }
+
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 2.5rem;
+  }
+  .species-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .species-card:hover { border-color: var(--color-border-secondary); }
+  .species-img {
+    width: 100%; height: 100px;
+    background: #B5D4F4;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .species-body { padding: 10px 12px 14px; }
+  .species-body h3 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .species-body p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+  .ocean-block {
+    background: linear-gradient(135deg, #042C53 0%, #185FA5 100%);
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .ocean-icon-wrap {
+    flex-shrink: 0;
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ocean-icon-wrap i { font-size: 32px; color: #5DCAA5; }
+  .ocean-block h2 { font-size: 20px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+  .ocean-block p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.7; }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 2.5rem;
+  }
+  .fact-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.25rem;
+  }
+  .fact-icon { font-size: 22px; color: #185FA5; margin-bottom: 10px; }
+  .fact-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .fact-card p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.55; }
+
+  .cta-footer {
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 36px;
+    text-align: center;
+  }
+  .cta-footer h2 { font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+  .cta-footer p { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 1.25rem; }
+  .btn-primary {
+    background: #185FA5;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: var(--border-radius-md);
+    border: none;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary:hover { background: #0C447C; }
+
+  nav-pills {
+    display: none;
+  }
+
+  .divider { height: 0.5px; background: var(--color-border-tertiary); margin: 2rem 0; }
+</style>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Landing page sobre vida marinha: espécies, oceanos e curiosidades</h2>
+
+<div class="hero">
+  <div class="hero-badge">Ecossistema Marinho</div>
+  <h1>O planeta azul <span>começa aqui</span></h1>
+  <p>Explore o universo fascinante dos oceanos, rios e mares — e descubra por que protegê-los é proteger a vida na Terra.</p>
+  <button class="hero-cta" onclick="sendPrompt('Me conte mais sobre a vida nos oceanos')">
+    <i class="ti ti-waves" aria-hidden="true"></i>
+    Explorar o oceano ↗
+  </button>
+  <div class="hero-wave"></div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <span class="num">70%</span>
+    <span class="lbl">da superfície da Terra é oceano</span>
+  </div>
+  <div class="stat-card">
+    <span class="num">+250k</span>
+    <span class="lbl">espécies marinhas conhecidas</span>
+  </div>
+  <div class="stat-card">
+    <span class="num">50%</span>
+    <span class="lbl">do oxigênio gerado pelos oceanos</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section-label">Espécies aquáticas</div>
+<div class="section-title">Criaturas incríveis dos oceanos</div>
+<p class="section-sub">Cada espécie marinha cumpre um papel vital no equilíbrio dos ecossistemas aquáticos.</p>
+
+<div class="species-grid">
+  <div class="species-card">
+    <div class="species-img" style="background:#E6F1FB">🐢</div>
+    <div class="species-body">
+      <h3>Tartaruga marinha</h3>
+      <p>As tartarugas marinhas são répteis que vivem nos oceanos há milhões de anos.
+Elas possuem casco resistente e nadadeiras que ajudam na natação.
+Alimentam-se de algas, águas-vivas e pequenos animais marinhos.
+As fêmeas colocam ovos nas praias, onde nascem os filhotes.
+A poluição e o plástico nos mares são grandes ameaças para sua sobrevivência.
+</p>
+    </div>
+  </div>
+  <div class="species-card">
+    <div class="species-img" style="background:#E1F5EE">🐬</div>
+    <div class="species-body">
+      <h3>Golfinho</h3>
+      <p>Os golfinhos são mamíferos marinhos inteligentes e sociáveis.
+Vivem em grupos e se comunicam por sons e movimentos.
+Alimentam-se principalmente de peixes e lulas.
+Eles respiram por pulmões e precisam subir à superfície para respirar.
+A poluição dos oceanos ameaça a vida dos golfinhos.
+</p>
+    </div>
+  </div>
+  <div class="species-card">
+    <div class="species-img" style="background:#FAECE7">🦈</div>
+    <div class="species-body">
+      <h3>Tubarão</h3>
+      <p>Os tubarões são peixes cartilaginosos que vivem nos oceanos há milhões de anos.
+Possuem dentes afiados e ótimo sentido de localização das presas.
+Alimentam-se de peixes, focas e outros animais marinhos.
+Existem diversas espécies, desde pequenas até gigantes como o tubarão-baleia.
+A pesca excessiva ameaça muitas espécies de tubarões.
+</p>
+    </div>
+  </div>
+  <div class="species-card">
+    <div class="species-img" style="background:#FBEAF0"></div /div>
+    <div class="species-body">
+      <h3>nemo</h3>
+      <p>Os peixes-palhaços são pequenos peixes coloridos que vivem em anêmonas-do-mar.
+Eles possuem uma relação de proteção com as anêmonas.
+Alimentam-se de algas, plâncton e pequenos organismos marinhos.
+São encontrados principalmente em águas quentes dos oceanos.
+A destruição dos recifes ameaça os peixes-palhaços.
+.</p>
+    </div>
+  </div>
+  <div class="species-card">
+    <div class="species-img" style="background:#EEEDFE">🐙</div>
+    <div class="species-body">
+      <h3>Polvo</h3>
+      <p>Os polvos são animais marinhos muito inteligentes e ágeis.
+Possuem oito tentáculos com ventosas que ajudam na captura de alimentos.
+Alimentam-se de peixes, crustáceos e moluscos.
+Conseguem mudar de cor para se camuflar e fugir de predadores.
+Vivem principalmente em cavernas e recifes no fundo do mar.
+</p>
+    </div>
+  </div>
+  <div class="species-card">
+    <div class="species-img" style="background:#EAF3DE">🐋</div>
+    <div class="species-body">
+      <h3>Baleia</h3>
+      <p>maior que a thais carla......As baleias são grandes mamíferos marinhos que vivem nos oceanos.
+Elas respiram por pulmões e precisam subir à superfície para respirar.
+Alimentam-se de pequenos organismos, peixes e lulas.
+Algumas espécies realizam longas migrações pelos mares.
+A poluição e a caça ameaçam várias espécies de baleias.
+</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="ocean-block">
+  <div class="ocean-icon-wrap">
+    <i class="ti ti-globe" aria-hidden="true"></i>
+  </div>
+  <div>
+    <h2>Importância dos oceanos para a vida</h2>
+    <p>Os oceanos regulam o clima global, absorvem CO₂ e produzem metade do oxigênio que respiramos. São o lar de milhões de espécies e a base de toda a cadeia alimentar marinha — e terrestre.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section-label">Você sabia?</div>
+<div class="section-title">Curiosidades marinhas</div>
+<p class="section-sub">O oceano ainda guarda muitos segredos — mais de 80% de suas profundezas não foram exploradas.</p>
+
+<div class="facts-grid">
+  <div class="fact-card">
+    <div class="fact-icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
+    <h3>Inteligência dos polvos</h3>
+    <p>Polvos conseguem abrir recipientes, resolver labirintos e aprender observando outros animais.</p>
+  </div>
+  <div class="fact-card">
+    <div class="fact-icon"><i class="ti ti-clock-bolt" aria-hidden="true"></i></div>
+    <h3>Tubarões são ancestrais</h3>
+    <p>Os tubarões existem há mais tempo do que os dinossauros — mais de 450 milhões de anos.</p>
+  </div>
+  <div class="fact-card">
+    <div class="fact-icon"><i class="ti ti-ruler-measure" aria-hidden="true"></i></div>
+    <h3>A baleia-azul</h3>
+    <p>É o maior animal que já viveu na Terra, podendo atingir 30 metros e 180 toneladas ate o mais gordo do mundo tem medo.</p>
+  </div>
+</div>
+
+<div class="cta-footer">
+  <h2>Preserve os oceanos</h2>
+  <p>Pequenas ações fazem grande diferença. Saiba como contribuir para a saúde dos ecossistemas marinhos.</p>
+  <button class="btn-primary" onclick="sendPrompt('Como posso ajudar a preservar os oceanos?')">
+    <i class="ti ti-leaf" aria-hidden="true"></i>
+    Como posso ajudar? ↗
+  </button>
+</div>
